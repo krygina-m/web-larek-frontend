@@ -26,6 +26,18 @@ interface IEventEmitter {
 }
 
 /**
+ * Интерфейс для данных формы заказа.
+ */
+ interface IOrder {
+	payment: PaymentMethod;
+	email: string;
+	phone: string;
+	address: string;
+	total: number;
+	items: string[];
+}
+
+/**
  * Интерфейс каталога
  */
 interface ICatalogModel {
@@ -71,15 +83,7 @@ class BasketModel implements IBasketModel {
  interface IAppStateModel {
 	catalog: IProduct[];
 	basket: string[];
-	order: IOrderForm | null;
-}
-
-/**
- * Интерфейс для данных корзины.
- */
- interface IBasketCard {
-	title: string;
-	price: number;
+	order: IOrder | null;
 }
 
 /**
@@ -89,17 +93,7 @@ class BasketModel implements IBasketModel {
 	total: number;
 }
 
-/**
- * Интерфейс для данных формы заказа.
- */
- interface IOrderForm {
-	payment: PaymentMethod;
-	email: string;
-	phone: string;
-	address: string;
-	total: number;
-	items: string[];
-}
+
 
 /**
  * Интерфейс для состояния формы.
@@ -170,7 +164,7 @@ class BasketModel implements IBasketModel {
  interface ILarekApi {
 	getProductList: () => Promise<IProduct[]>;
 	getProductItem: (id: string) => Promise<IProduct>;
-	orderProduct: (order: IOrderForm) => Promise<IOrderResult>;
+	orderProduct: (order: IOrder) => Promise<IOrderResult>;
 }
 
 /**
@@ -206,4 +200,4 @@ class BasketModel implements IBasketModel {
 /**
  * Тип для ошибок формы.
  */
- type FormErrors = Partial<Record<keyof IOrderForm, string>>; 
+ type FormErrors = Partial<Record<keyof IOrder, string>>; 

@@ -11,6 +11,8 @@ interface IBasketModel {
 
 interface IEventEmitter {
   emit: (event: string, data: unknown) => void;
+	on(event: string, callback: Function): void;
+	off(event: string, callback: Function): void
 }
 
 /**
@@ -43,14 +45,8 @@ interface IEventEmitter {
 interface ICatalogModel {
 	items: IProduct[];
 	setItems(items: IProduct[]): void;
-	getProduct(id: string): IProduct;
-}
-
-/**
- * Интерфейс ????
- */
-interface IViewConstructor {
-	new (container: HTMLElement, events?: IEventEmitter): IView;
+	getItems(): IProduct[];
+	getItem(id: string): IProduct;
 }
 
 /**
@@ -59,41 +55,6 @@ interface IViewConstructor {
 interface IView {
 	render(data?: object): HTMLElement;
 }
-
-/**
- * Class корзины из видео КЛАССЫ НЕ НАДО В 8-М СПРИНТЕ. ТОЛЬКО В 9-М	
- */
-class BasketModel implements IBasketModel {
-  items: Map<string, number> = new Map();
-  add(id: string): void {
-    if(!this.items.has(id)) this.items.set(id, 0);
-    this.items.set(id, this.items.get(id)! + 1);
-  };
-  remove(id: string): void {
-    if (!this.items.has(id)) return;
-    if (this.items.get(id)! > 0) {
-      this.items.set(id, this.items.get(id)! - 1);
-      if (this.items.get(id) === 0) this.items.delete(id);
-    }
-  };
-}
-/**
- * Интерфейс для хранения состояния приложения.
- */
- interface IAppStateModel {
-	catalog: IProduct[];
-	basket: string[];
-	order: IOrder | null;
-}
-
-/**
- * Интерфейс для данных успешного выполнения операции.
- */
- interface ISuccess {
-	total: number;
-}
-
-
 
 /**
  * Интерфейс для состояния формы.
@@ -113,66 +74,21 @@ class BasketModel implements IBasketModel {
 /**
  * Интерфейс для обработчика событий успешного выполнения операции.
  */
- interface ISuccessActions {
-	onClick: () => void;
-}
-
-/**
- * Интерфейс для данных страницы.
- */
- interface IPage {
-	counter: number | null;
-	catalog: HTMLElement[];
-	locked: boolean;
-}
-
-/**
- * Интерфейс для общего количества элементов с типом T.
- */
- interface ITotalItems<T> {
+ interface ISuccess {
 	total: number;
-	items: T[];
+	items: string[];
 }
 
-/**
- * Интерфейс для представления данных в корзине.
- */
- interface IBasketData {
-	items: HTMLElement[];
-	total: number;
-}
-
-/**
- * Интерфейс для представления данных на странице.
- */
- interface IPageData {
-	counter: number;
-	catalog: HTMLElement[];
-	locked: boolean;
-}
-
-/**
- * Интерфейс для обработчика событий карточки товара.
- */
- interface ICardActions {
-	onClick: (event: MouseEvent) => void;
-}
 
 /**
  * Интерфейс для API ларька.
  */
- interface ILarekApi {
-	getProductList: () => Promise<IProduct[]>;
-	getProductItem: (id: string) => Promise<IProduct>;
-	orderProduct: (order: IOrder) => Promise<IOrderResult>;
-}
-
-/**
- * Интерфейс для результата заказа.
- */
- interface IOrderResult {
-	id: string;
-	total: number;
+interface IApi {
+	baseUrl: string;
+	options: RequestInit;
+	handleResponse(response: Response): Promise<object>;
+	get(uri: string): Promise<object>;
+	post(uri: string, data: object, method:string): Promise<object>
 }
 
 

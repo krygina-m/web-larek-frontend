@@ -5,7 +5,15 @@ interface IBasketModel {
   items: Map<string, number>;
   add(id: string): void;
   remove(id: string): void;
+	purchaseCost(cost: number): number;
 }
+
+interface IBasketView {
+  render(): void; // метод для первоначального рендеринга корзины
+  update(items: Map<string, number>): void; // метод для обновления отображения корзины при изменении данных
+  clear(): void; // метод для очистки корзины
+}
+
 
 interface IEventEmitter {
   emit: (event: string, data: unknown) => void;
@@ -63,13 +71,6 @@ interface IView {
 }
 
 /**
- * Интерфейс для модального окна.
- */
- interface IModal {
-	content: HTMLElement;
-}
-
-/**
  * Интерфейс для обработчика событий успешного выполнения операции.
  */
  interface ISuccess {
@@ -96,14 +97,9 @@ interface IApi {
  interface IContactsOrder {
 	email: string;
 	phone: string;
-}
-
-/**
- * Интерфейс для данных адреса заказа.
- */
- interface IOrderAddress {
 	payment: PaymentMethod;
 	address: string;
+	validate(email: string, phone: string, address: string): boolean
 }
 
 /**

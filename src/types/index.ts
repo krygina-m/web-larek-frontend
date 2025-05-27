@@ -2,21 +2,21 @@
  * Интерфейс корзины
  */
 interface IBasketModel {
-  items: Map<string, number>;
-  add(id: string): void;
-  remove(id: string): void;
+	items: Map<string, number>;
+	add(id: string): void;
+	remove(id: string): void;
 	purchaseCost(cost: number): number;
 }
 
 interface IBasketView {
-  render(): void; // метод для первоначального рендеринга корзины
-  update(items: Map<string, number>): void; // метод для обновления отображения корзины при изменении данных
-  clear(): void; // метод для очистки корзины
+	render(): void; // метод для первоначального рендеринга корзины
+	update(items: Map<string, number>): void; // метод для обновления отображения корзины при изменении данных
+	clear(): void; // метод для очистки корзины
 }
 
 
 interface IEventEmitter {
-  emit: (event: string, data: unknown) => void;
+	emit: (event: string, data: unknown) => void;
 	on(event: string, callback: Function): void;
 	off(event: string, callback: Function): void
 }
@@ -24,7 +24,7 @@ interface IEventEmitter {
 /**
  * Интерфейс продукта
  */
- interface IProduct {
+interface IProduct {
 	id: string;
 	description: string;
 	image: string;
@@ -36,7 +36,7 @@ interface IEventEmitter {
 /**
  * Интерфейс для данных формы заказа.
  */
- interface IOrder {
+interface IOrder {
 	payment: PaymentMethod;
 	email: string;
 	phone: string;
@@ -63,21 +63,42 @@ interface IView {
 }
 
 /**
+ * Интерфейс для формы.
+ */
+interface IForm {
+	submit: HTMLButtonElement;
+	errors: HTMLElement;
+	onInputChange(): void;
+	render(state: `Partial<T>` & IFormState): HTMLElement;
+}
+
+/**
  * Интерфейс для состояния формы.
  */
- interface IFormState {
+interface IFormState {
 	valid: boolean;
 	errors: string[];
+}
+
+/** 
+ * Интерфейс для модального окна. 
+ */
+
+interface IPopup {
+	content: HTMLElement;
+	closeButton: HTMLButtonElement;
+	open(): void;
+	close(): void;
+	handleESC(evt: KeyboardEvent): void;
+	render(data: IPopup): boolean
 }
 
 /**
  * Интерфейс для обработчика событий успешного выполнения операции.
  */
- interface ISuccess {
+interface ISuccess {
 	total: number;
-	items: string[];
 }
-
 
 /**
  * Интерфейс для API ларька.
@@ -87,14 +108,13 @@ interface IApi {
 	options: RequestInit;
 	handleResponse(response: Response): Promise<object>;
 	get(uri: string): Promise<object>;
-	post(uri: string, data: object, method:string): Promise<object>
+	post(uri: string, data: object, method: string): Promise<object>
 }
-
 
 /**
  * Интерфейс для данных заказа на доставку.
  */
- interface IContactsOrder {
+interface IContactsOrder {
 	email: string;
 	phone: string;
 	payment: PaymentMethod;
@@ -105,9 +125,9 @@ interface IApi {
 /**
  * Перечисление для метода оплаты.
  */
- type PaymentMethod = 'card' | 'cash';
+type PaymentMethod = 'card' | 'cash';
 
 /**
  * Тип для ошибок формы.
  */
- type FormErrors = Partial<Record<keyof IOrder, string>>; 
+type FormErrors = Partial<Record<keyof IOrder, string>>; 

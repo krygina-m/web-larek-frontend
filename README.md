@@ -266,7 +266,7 @@ constructor(container: HTMLElement)
 #### Поля:
 
 - **valid: boolean** - логическая переменная, хранящая состояние валидности формы
-  - **errors: string[]** - массив ошибок
+- **errors: string[]** - массив ошибок
 
 ## Слой представления
 

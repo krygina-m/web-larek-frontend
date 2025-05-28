@@ -360,6 +360,7 @@ constructor(container: HTMLElement)
 - **set email(value: string)** - установить e-mail
 - **set phone(value: string)** - установить телефон
 - **set address(value: string)** - установить адрес
+- **clearForm()** - очистить форму
 
 ### 7. Класс `BasketView`
 

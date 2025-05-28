@@ -9,9 +9,9 @@ interface IBasketModel {
 }
 
 interface IBasketView {
-	render(): void; // метод для первоначального рендеринга корзины
-	update(items: Map<string, number>): void; // метод для обновления отображения корзины при изменении данных
-	clear(): void; // метод для очистки корзины
+	render(): void; // первоначальный рендеринг корзины
+	update(items: Map<string, number>): void;
+	clear(): void;
 }
 
 

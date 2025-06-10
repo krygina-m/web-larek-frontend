@@ -24,14 +24,23 @@ interface IEventEmitter {
 /**
  * Интерфейс продукта
  */
-interface IProduct {
+export interface IProduct {
 	id: string;
 	description: string;
 	image: string;
 	title: string;
-	category: string;
+	category: ICategory;
 	price: number | null;
+	isInBasket: boolean;
 }
+
+export type ICategory =
+	| 'хард-скил'
+	| 'софт-скил'
+	| 'кнопка'
+	| 'дополнительное'
+	| 'другое';
+
 
 /**
  * Интерфейс для данных формы заказа.
@@ -114,12 +123,12 @@ interface IApi {
 /**
  * Интерфейс для данных заказа на доставку.
  */
-interface IContactsOrder {
+export interface IContactsOrder {
 	email: string;
 	phone: string;
 	payment: PaymentMethod;
 	address: string;
-	validate(email: string, phone: string, address: string): boolean
+	//validate(email: string, phone: string, address: string): boolean
 }
 
 /**
@@ -130,4 +139,4 @@ type PaymentMethod = 'card' | 'cash';
 /**
  * Тип для ошибок формы.
  */
-type FormErrors = Partial<Record<keyof IOrder, string>>; 
+

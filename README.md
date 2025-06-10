@@ -388,24 +388,39 @@ constructor(container: HTMLElement)
 
 ### Перечень событий, генерируемых в системе:
 
-- `CatalogModel:change` - событие генерируемое при подгрузке с сервера карточек товара
+- `catalogModel:change` - событие генерируемое при подгрузке с сервера карточек товара
 
-- `Popup:open` - открытие модального окна
+- `card:select` - выбор карточки
 
-- `Popup:close` - закрытие модального окна
+- `basketModel:add` - добавление товара в корзину
 
-- `BasketModel:add` - добавление товара в корзину
+- `basketModel:remove` - удаление товара из корзины
 
-- `BasketModel:remove` - удаление товара из корзины
+- `preview:change` - перерисовать страницу
 
-- `ContactsOrder.address:change`- изменение поля ввода адреса доставки
+- `basket:open` - открыть корзину
 
-- `ContactsOrder.payment:change` - изменение поля ввода способа оплаты
-
-- `ContactsOrder.email:change` - изменение поля ввода электронной почты
-
-- `ContactsOrder.phone:change` - изменение поля ввода номера телефона
+- `backet:change` - закрыть корзину
 
 - `Form:submit` - сохранение данных в форме
 
-- `FormState:change` - изменение состояния валидации форм
+- `formErrors:change` - изменение состояния валидации форм
+
+- `order:open` - открыть форму заполнения данных покупателя
+
+- `сontactsOrder.address:change`- изменение поля ввода адреса доставки
+
+- `сontactsOrder.payment:change` - изменение поля ввода способа оплаты
+
+- `сontactsOrder.email:change` - изменение поля ввода электронной почты
+
+- `сontactsOrder.phone:change` - изменение поля ввода номера телефона
+
+- `order:submit` - успешное заполнения формы
+
+- `popup:open` - открытие модального окна
+
+- `popup:close` - закрытие модального окна
+
+
+

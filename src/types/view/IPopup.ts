@@ -1,4 +1,4 @@
-export interface IModalData {
+export interface IPopupData {
 	content: HTMLElement;
 }
 
@@ -11,12 +11,12 @@ export interface IModalData {
 }
 */
 
-export interface IModalView {
+export interface IPopupView {
 	set content(content: HTMLElement);
 	content: HTMLElement;
 	closeButton: HTMLButtonElement;
 	open(): void;
 	close(): void;
 	//handleESC(evt: KeyboardEvent): void;
-	render(data: IModalData): HTMLElement
+	render(data: IPopupData): HTMLElement
 }

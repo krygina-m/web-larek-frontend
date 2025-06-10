@@ -1,9 +1,9 @@
 import { ensureElement } from '../../utils/utils';
 import { IEventEmitter } from '../../types/base/IEventEmitter';
-import { IFormState, IFormView } from '../../types/view/IForm';
+import { IForm, IFormView } from '../../types/view/IForm';
 import { View } from '../base/view';
 
-export class FormView<T> extends View<IFormState> implements IFormView<T> {
+export class FormView<T> extends View<IForm> implements IFormView<T> {
 	protected _submitButton: HTMLButtonElement;
 	protected _errors: HTMLElement;
 
@@ -30,7 +30,7 @@ export class FormView<T> extends View<IFormState> implements IFormView<T> {
 		});
 	}
 
-	protected onInputChange(field: keyof T, value: string): void {
+	onInputChange(field: keyof T, value: string): void {
 		this.events.emit(`${this.container.name}.${String(field)}:change`, {
 			field,
 			value,
@@ -49,7 +49,7 @@ export class FormView<T> extends View<IFormState> implements IFormView<T> {
 		this.container.reset();
 	}
 
-	render(state: Partial<T> & IFormState): HTMLFormElement {
+	render(state: Partial<T> & IForm): HTMLFormElement {
 		const { valid, errors, ...inputs } = state;
 		super.render({ valid, errors });
 		Object.assign(this, inputs);

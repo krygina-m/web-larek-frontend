@@ -1,9 +1,9 @@
 import { createElement, ensureElement } from '../../utils/utils';
 import { IEventEmitter } from '../../types/base/IEventEmitter';//это эмиттер
-import { IBasketData, IBasketView } from '../../types/view/IBasket';
+import { IBasketModel, IBasketView } from '../../types/view/IBasket';
 import { View } from '../base/view';
 
-export class BasketView extends View<IBasketData> implements IBasketView {
+export class BasketView extends View<IBasketModel> implements IBasketView {
 	protected _list: HTMLElement;
 	protected _total: HTMLElement;
 	protected _button: HTMLButtonElement;

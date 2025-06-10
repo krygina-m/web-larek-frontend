@@ -1,5 +1,5 @@
-export interface IBasketData {
-	items: HTMLElement[];
+export interface IBasketModel {
+	items: Map<string, number>;
 	total: number;
 }
 

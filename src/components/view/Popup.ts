@@ -1,9 +1,9 @@
 import { ensureElement } from '../../utils/utils'; //эта штука есть
 import { IEventEmitter } from '../../types/base/IEventEmitter';//это эмиттер
-import { IModalData, IModalView } from '../../types/view/IPopup';//это модалки. 1-я с хтмл, вторая с открыть/закрыть у меня IPopuр
+import { IPopupData, IPopupView } from '../../types/view/IPopup';//это модалки. 1-я с хтмл, вторая с открыть/закрыть у меня IPopuр
 import { View } from '../base/view';//это класс вьюхи!!! он переключает класс
 
-export class ModalView extends View<IModalData> implements IModalView {
+export class ModalView extends View<IPopupData> implements IPopupView {
 	protected _closeButton: HTMLButtonElement;
 	protected _content: HTMLElement;
 
@@ -43,7 +43,7 @@ export class ModalView extends View<IModalData> implements IModalView {
         };
   }
 
-	render(data: IModalData): HTMLElement {
+	render(data: IPopupData): HTMLElement {
 		super.render(data);
 		this.open();
 		return this.container;

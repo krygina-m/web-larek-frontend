@@ -1,17 +1,12 @@
-import { IEventEmitter } from '../base/IEventEmitter';
-
-export interface IFormState {
+export interface IForm {
 	valid: boolean;
 	errors: string[];
-}
-
-export interface IFormViewConstructor<T> {
-	new (container: HTMLFormElement, events: IEventEmitter): IFormView<T>;
 }
 
 export interface IFormView<T> {
 	set valid(state: boolean);
 	set errors(errors: string);
+	onInputChange(field: keyof T, value: string): void;
 	clearForm(): void;
-	render(state: Partial<T> & IFormState): HTMLFormElement;
+	render(state: Partial<T> & IForm): HTMLFormElement;
 }

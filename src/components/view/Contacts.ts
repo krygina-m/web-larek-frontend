@@ -1,9 +1,10 @@
 import { IEventEmitter } from '../../types/base/IEventEmitter';//это эмиттер
-import { IContactsData, IContactsView } from '../../types/view/IContacts';
+import { IContactsView } from '../../types/view/IContacts';
+import { IContactsOrder }  from '../../types/model/IData';
 import { FormView } from './Form';
 
 export class ContactsView
-	extends FormView<IContactsData>
+	extends FormView<IContactsOrder>
 	implements IContactsView
 {
 	constructor(container: HTMLFormElement, events: IEventEmitter) {

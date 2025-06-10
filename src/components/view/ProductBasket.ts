@@ -1,9 +1,10 @@
 import { ensureElement } from '../../utils/utils';
-import { IProductCatalogActions } from '../../types/view/IProductCatalog';
-import { IProductBasketData, IProductBasketView } from '../../types/view/IProductBasket';
+import { IProductCatalogActions } from '../../types/view/IProduct';
+import { IProductBasketView } from '../../types/view/IProduct';
+import { IProduct } from '../../types/view/IProduct';
 import { ProductView } from './Product';
 
-export class CardBasketView extends ProductView<IProductBasketData> 
+export class ProductBasketView extends ProductView<IProduct> 
   implements IProductBasketView
 {
 	protected _index: HTMLElement;

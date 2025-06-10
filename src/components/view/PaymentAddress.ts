@@ -1,13 +1,11 @@
 import { ensureAllElements } from '../../utils/utils';
 import { IEventEmitter } from '../../types/base/IEventEmitter';
-import {
-	IPaymentAddressData,
-	IPaymentAddressView,
-} from '../../types/view/IPaymentAddress';
+import { IContactsOrder }  from '../../types/model/IData';
+import { IPaymentAddressView } from '../../types/view/IPaymentAddress';
 import { FormView } from './Form';
 
 export class PaymentAddressView
-	extends FormView<IPaymentAddressData>
+	extends FormView<IContactsOrder>
 	implements IPaymentAddressView
 {
 	protected _paymentButtons: HTMLButtonElement[];

@@ -1,13 +1,13 @@
 import { ICategory } from '../../types/view/IProduct';
-import { IProductCatalogActions } from '../../types/view/IProductCatalog';
+import { IProductCatalogActions } from '../../types/view/IProduct';
+import { IProduct } from '../../types/view/IProduct';
 import {
 	ICategoryNames,
-	IProductCatalogData,
 	IProductCatalogView,
-} from '../../types/view/IProductCatalog';
+} from '../../types/view/IProduct';
 import { ProductView } from './Product';
 
-export class ProductCatalogView<T = IProductCatalogData>
+export class ProductCatalogView<T = IProduct>
 	extends ProductView<T>
 	implements IProductCatalogView
 {

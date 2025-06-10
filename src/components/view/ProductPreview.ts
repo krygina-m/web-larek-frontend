@@ -1,13 +1,13 @@
 import { ensureElement } from '../../utils/utils';
-import { IProductCatalogActions } from '../../types/view/IProductCatalog';
+import { IProductCatalogActions } from '../../types/view/IProduct';
 import {
-	IProductPreviewData,
-	IProductPreviewView,
-} from '../../types/view/IProductPreview';
+		IProductPreviewView
+} from '../../types/view/IProduct';
+import { IProduct } from '../../types/view/IProduct';
 import { ProductCatalogView } from './ProductCatalog';
 
 export class ProductPreviewView
-	extends ProductCatalogView<IProductPreviewData>
+	extends ProductCatalogView<IProduct>
 	implements IProductPreviewView
 {
 	protected _description: HTMLElement;

@@ -15,7 +15,7 @@ import { AppModel } from './components/model/Data';
 import { AppApi } from './components/model/AppAPI';
 import { ProductCatalogView } from './components/view/ProductCatalog';
 import { ProductPreviewView } from './components/view/ProductPreview';
-import { CardBasketView } from './components/view/ProductBasket';
+import { ProductBasketView } from './components/view/ProductBasket';
 import { PaymentAddressView } from './components/view/PaymentAddress';
 import { ContactsView } from './components/view/Contacts';
 import { SuccessView } from './components/view/Success';
@@ -120,7 +120,7 @@ events.on('backet:change', () => {
 	page.basketCounter = app.getBasketItems().length;
 
 	basket.items = app.getBasketItems().map((item, index) => {
-		const card = new CardBasketView(cloneTemplate(cardBasketTemplate), {
+		const card = new ProductBasketView(cloneTemplate(cardBasketTemplate), {
 			onClick: () => {
 				events.emit('basketModel:remove', item);
 			},

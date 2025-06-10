@@ -1,5 +1,3 @@
-import { IEventEmitter } from '../base/IEventEmitter';
-
 export interface IModalData {
 	content: HTMLElement;
 }

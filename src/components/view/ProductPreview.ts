@@ -1,9 +1,9 @@
 import { ensureElement } from '../../utils/utils';
-import { IProductCatalogActions } from '../../types/view/IProduct';
+import { IProductCatalogActions } from '../../types/model/IProduct';
 import {
 		IProductPreviewView
-} from '../../types/view/IProduct';
-import { IProduct } from '../../types/view/IProduct';
+} from '../../types/model/IProduct';
+import { IProduct } from '../../types/model/IProduct';
 import { ProductCatalogView } from './ProductCatalog';
 
 export class ProductPreviewView

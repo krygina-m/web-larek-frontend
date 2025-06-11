@@ -1,5 +1,5 @@
 import { IOrder, IOrderResult } from './IData';
-import { IProduct } from '../../types/view/IProduct';
+import { IProduct } from './IProduct';
 export interface IAppAPIConstructor {
 	new (imageUrl: string, baseUrl: string, options?: RequestInit): IAppAPI;
 }

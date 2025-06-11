@@ -1,8 +1,8 @@
 import { ensureElement } from '../../utils/utils';
-import { IProductCatalogActions } from '../../types/view/IProduct';
-import { IProductBasketView } from '../../types/view/IProduct';
-import { IProduct } from '../../types/view/IProduct';
-import { ProductView } from './Product';
+import { IProductCatalogActions } from '../../types/model/IProduct';
+import { IProductBasketView } from '../../types/model/IProduct';
+import { IProduct } from '../../types/model/IProduct';
+import { ProductView } from '../model/Product';
 
 export class ProductBasketView extends ProductView<IProduct> 
   implements IProductBasketView

@@ -1,11 +1,11 @@
-import { ICategory } from '../../types/view/IProduct';
-import { IProductCatalogActions } from '../../types/view/IProduct';
-import { IProduct } from '../../types/view/IProduct';
+import { ICategory } from '../../types/model/IProduct';
+import { IProductCatalogActions } from '../../types/model/IProduct';
+import { IProduct } from '../../types/model/IProduct';
 import {
 	ICategoryNames,
 	IProductCatalogView,
-} from '../../types/view/IProduct';
-import { ProductView } from './Product';
+} from '../../types/model/IProduct';
+import { ProductView } from '../model/Product';
 
 export class ProductCatalogView<T = IProduct>
 	extends ProductView<T>
@@ -37,7 +37,6 @@ export class ProductCatalogView<T = IProduct>
 		this._category.classList.add(
 			`card__category_${ProductCatalogView.categories[category]}`
 		);
-
 		this.setTextContent(this._category, category);
 	}
 }

@@ -3,7 +3,7 @@ import './scss/styles.scss';
 import { ensureElement, cloneTemplate } from './utils/utils';
 
 import { API_URL, CDN_URL } from './utils/constants';
-import { IProduct } from './types/view/IProduct';
+import { IProduct } from './types/model/IProduct';
 import { IOrder } from './types/model/IData';
 import { IContactsOrder } from './types/model/IData';
 import { IFormErrors } from './types/model/IData';
@@ -11,7 +11,7 @@ import { EventEmitter } from './components/base/events';
 import { PageView } from './components/view/Page';
 import { ModalView } from './components/view/Popup';
 import { BasketView } from './components/view/Basket';
-import { AppModel } from './components/model/Data';
+import { CatalogModel } from './components/model/Data';
 import { AppApi } from './components/model/AppAPI';
 import { ProductCatalogView } from './components/view/ProductCatalog';
 import { ProductPreviewView } from './components/view/ProductPreview';
@@ -21,7 +21,7 @@ import { ContactsView } from './components/view/Contacts';
 import { SuccessView } from './components/view/Success';
 
 const events = new EventEmitter();
-const app = new AppModel({}, events);
+const app = new CatalogModel({}, events);
 const api = new AppApi(CDN_URL, API_URL);
 
 const cardTemplate = ensureElement<HTMLTemplateElement>('#card-catalog');
@@ -50,7 +50,7 @@ const success = new SuccessView(cloneTemplate(successTemplate), {
 
 api
 	.getProductsList()
-	.then(app.setProductList.bind(app))
+	.then(app.setItems.bind(app))
 	.catch((err) => console.log(err));
 
 events.onAll(({ eventName, data }) => console.log(eventName, data));
@@ -76,7 +76,7 @@ events.on('catalogModel:change', () => {
 });
 
 events.on('card:select', (item: IProduct) => {
-	app.setPreviewProduct(item);
+	app.setItem(item);
 });
 
 events.on('basketModel:add', (item: IProduct) => {

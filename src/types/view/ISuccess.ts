@@ -6,7 +6,6 @@ export interface ISuccess {
 	total: number;
 }
 
-
 export interface ISuccessView {
 	set total(total: number);
 }

@@ -138,6 +138,11 @@ yarn build
 #### Методы:
 
 - **render(data?: `Partial<T>`)** - отображает переданные данные
+- **toggleClass(element: HTMLElement, className: string, state?: boolean)** - переключает класс у элемента
+- **setImage** - устанавливает картинку
+- **setTextContent** - устанавливает текст
+- **setDisabled** - переключает видимость элемента
+- **render** - рендеринг
 
 ### 2. Класс `Api`
 
@@ -163,37 +168,52 @@ yarn build
 `post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object>`
 Выполняет POST запрос с переданным URI, данными и методом. Принимает URI в виде строки, объект данных и метод типа ApiPostMethods (строковый литерал). Возвращает промис, возвращающий объект.
 
-## Презентер
+### Презентер
 
-### Класс `EventEmitter`
+### 3. Класс `EventEmitter`
 
 Брокер событий. Может установить и снять слушатели событий, вызвать слушателей при возникновении события.
 
 #### Используемые методы:
 
-- `on(event: string, callback: Function): void`
+- `on(eventName: string, callback: Function): void`
   Добавляет обработчик для указанного события.
   Принимает два параметра:
 
-1. `event`: строка - имя события.
+1. `eventName`: строка - имя события.
 2. `callback`: колбэк функции добавления обработчика события.
    Возвращает тип `void`.
 
-- `off(off(event: string, callback: Function): void`
+- `off(off(eventName: string, callback: Function): void`
   Удаляет обработчик для указанного события.
   Принимает два параметра:
 
-1. `event`: строка - имя события.
+1. `eventName`: строка - имя события.
 2. `callback`: колбэк функции удаления обработчика события.
    Возвращает тип `void`.
 
-- `emit: (event: string, data: unknown) => void`
+- `emit: (eventName: string, data: unknown) => void`
   Вызывает указанное событие, сообщая всем, кто на него подписан, о его наступлении. При этом могут передаваться какие-нибудь данные.
   Принимает два параметра:
 
-1. `event`: строка - имя события.
+1. `eventName`: строка - имя события.
 2. `data`: данные, необходимые для вызова события.
    Возвращает тип `void`.
+
+- `trigger<T extends object>(eventName: string, context?: Partial<T>): (data: T) => void`
+Коллбек триггер, генерирующий событие при вызове. Принимает два параметра:
+1. `eventName`: строка - имя события.
+2. `context`: данные, необходимые для вызова события.
+   Возвращает тип `void`.
+
+- `onAll(callback: (event: EmitterEvent) => void`
+  Добавляет обработчик на все события.
+
+- `offAll()`
+  Добавляет обработчик на все события.
+
+### 4. Класс `Model`
+Абстрактный класс. 
 
 ## Слой данных
 
@@ -203,26 +223,27 @@ yarn build
 
 ##### Поля:
 
-- **id: HTMLElement** - индивидуальный идентификатор карточки
-- **description?: HTMLElement** - описание карточки товара
-- **image: HTMLImageElement** - картинка товара
-- **title: HTMLElement** - название карточки товара
-- **category: HTMLElement** - тегория карточки товара
-- **price: HTMLElement** - цена товара
-
+- **id: string** - индивидуальный идентификатор карточки
+- **title: string** - заголовок карточки
+- **description?: string** - описание карточки товара
+- **image?: string** - картинка товара
+- **category: ICategory** - тегория карточки товара
+- **price: number | null** - цена товара
+- **index: number** - индекс карточки товара
+- **isInBasket: boolean** - признак нахождения товара в корзине
 ##### Конструктор
 
 constructor(container: HTMLElement)
 
 ##### Методы
 
-- **set id(value: string) / get id(): string** - установить индивидуальный
-- **set title(value: string) / get title(): string** - установить названия карточки товара
+- **set id(value: string) / get id(): string** - установить/поучить индивидуальный идентификатор
+- **set title(value: string) / get title(): string** - установить/поучить названия карточки товара
 - **set image(value: string)** - установить картинку товара
 - **set description(value: string)** - установить описание товара
-- **set category(value: string) / get category(): string** - установить категорию товара
-- **disableButton(value: number | null)** - проверка на бесценный товар
-- **set price(value: number) / get price(): number** - установить цену
+- **set category(value: string) / get category(): string** - установить/поучить категорию товара
+- **set price(value: number) / get price(): number** - установить/поучить цену
+- **set isInBasket(state: boolean)** - установить признак "товар в корзине"
 
 ### 2. Класс `ContactsOrder` (Контакты заказчика)
 
@@ -268,9 +289,37 @@ constructor(container: HTMLElement)
 - **valid: boolean** - логическая переменная, хранящая состояние валидности формы
 - **errors: string[]** - массив ошибок
 
+### 5. Класс `CatalogModel`
+
+Модель каталога товаров. Отвечает за хранение и управление списком доступных товаров.
+
+#### Конструктор
+
+Не принимает параметров
+
+#### Поля
+
+- **productList: IProduct[]** - массив товаров каталога
+- **preview: string | null** - массив товаров каталога
+- **order: Partial<IContactsOrder>** - массив товаров каталога
+- **formErrors: IFormErrors** - массив товаров каталога
+
+#### Методы
+
+- **setItems(items: IProduct[]): void** - обновление списка товаров
+- **setItem(item: IProduct): void** - обновление товара
+- **addProductToBasket(item: IProduct): void** - дабавить позицию в корзину
+- **removeProductFromBasket(item: IProduct): void** - удалить позицию корзины
+- **getBasketItems(): IProduct[]** - получить позицию корзины
+- **getTotalPrice(): number** - получить стоимость корзины
+- **setOrderField<T extends keyof IContactsOrder>(field: T value: IContactsOrder[T]): void** - установить поле заказа
+- **validateOrder(): boolean** - валидация заказа
+- **clearBasket(): void** - очистить данные корзины
+- **clearOrder(): void** - очистить данные заказа
+
 ## Слой представления
 
-### 1. Класс `Page`
+### 1. Класс `PageView`
 
 Является дочерним классом `View`.
 Отвечает за расстановку отображаемых элементов на странице, устанавливает элементы в предназначенные для них контейнеры, выводит обновленное значение счетчика товаров после добавления/удаления товара, позволяет блокировать прокрутку страницы, когда поверх нее вызвано модальное окно. Содержит сеттеры для работы с полями.
@@ -279,10 +328,10 @@ constructor(container: HTMLElement)
 
 #### Поля:
 
-- **counter: HTMLElement** - счетчик товаров в корзине
-- **catalog: HTMLElement** - каталог товаров
+- **basketCounter: HTMLElement** - счетчик товаров в корзине
+- **productsList: HTMLElement** - каталог товаров
 - **wrapper: HTMLElement** - обертка страницы (для блокировки скролла)
-- **shoppingCartIcon: HTMLElement** - элемент счетчика на главной странице
+- **basket: HTMLElement** - элемент счетчика на главной странице
 
 ### 2. Класс `Popup`
 
@@ -302,25 +351,7 @@ constructor(container: HTMLElement)
 - **handleESC(evt:KeyboardEvent)** - закрытие модального окна по нажатию на ESC
 - **render(data: IPopup)** - отображение модального окна
 
-### 3. Класс `CatalogModel`
-
-Модель каталога товаров. Отвечает за хранение и управление списком доступных товаров.
-
-#### Конструктор
-
-Не принимает параметров
-
-#### Поля
-
-- **items: IProduct[]** - массив товаров каталога
-
-#### Методы
-
-- **setItems(items: IProduct[]): void** - обновление списка товаров
-- **getItems(): IProduct[]** - получение всех товаров
-- **getItem(id: string): IProduct** - получение товара по id
-
-### 4. Класс `Success`
+### 3. Класс `SuccessView`
 
 Является дочерним классом View.
 Предназначен для отображения сообщения об успешно завершенном заказе с итоговой суммой покупки, которое выводится в контент модального окна.
@@ -330,12 +361,13 @@ constructor(container: HTMLElement)
 #### Поля:
 
 - **total: number** - количество списанных средств
+- **closeButton: HTMLButtonElement** - количество списанных средств
 
 #### Методы
 
 - **setTotal(total: number): HTMLElement** - установка значения списанных средств
 
-### 5. Класс `Form`
+### 4. Класс `FormView`
 
 Представляет собой универсальный компонент формы, является родительским классом для всех форм приложения. Содержит сеттеры для установки значений полей.
 
@@ -343,38 +375,29 @@ constructor(container: HTMLElement)
 
 #### Поля:
 
-- **submit: HTMLButtonElement** - кнопка сохранения формы
+- **submitButton: HTMLButtonElement** - кнопка сохранения формы
 - **errors: HTMLElement** - вывод сообщений об ошибках валидации
 
 #### Методы:
 
 - **onInputChange()** - отслеживание изменений в поле ввода для генерации событий "changed"
+- **oclearForm(): void** - очищает форму
 - **render(state: `Partial<T>` & IFormState)** - отрисовывает и перерисовывает форму (например, когда нужно вывести сообщении об ошибке при невалидном тексте в поле ввода)
 
-### 6. Класс `Order`
-
-Является дочерним классом Form.
-Отвечает за отображение данных о заказе. Содержит сеттеры для работы с полями, позволяет принять от пользователя способ оплаты, e-mail, телефон и адрес.
-
-В конструктор принимает HTML-элемент формы и экземпляр EventEmitter для инициализации событий.
-
-#### Методы:
-
-- **set payment(value: PaymentMethod)** - установить способ оплаты
-- **set email(value: string)** - установить e-mail
-- **set phone(value: string)** - установить телефон
-- **set address(value: string)** - установить адрес
-- **clearForm()** - очистить форму
-
-### 7. Класс `BasketView`
+### 5. Класс `BasketView`
 
 Интерфейс описывает основные операции, которые должен поддерживать класс представления корзины.
 
+#### Поля:
+
+- **list: HTMLButtonElement** - список корзины 
+- **total: HTMLElement** - сумма
+- **button: HTMLElement** - кнопка
+
 #### Методы:
 
-- **render()** - метод для первоначального рендеринга корзины
-- **update(items: Map<string, number>)** - метод для обновления отображения корзины при изменении данных
-- **clear()** - метод для очистки корзины
+- **set items(items: HTMLElement[])** - установить содержимое корзины
+- **set total(total: number)** - установить сумму корзины
 
 ## Взаимодействие компонентов
 

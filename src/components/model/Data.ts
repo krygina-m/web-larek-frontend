@@ -1,24 +1,24 @@
-import { IProduct } from '../../types/view/IProduct';
+import { IProduct } from '../../types/model/IProduct';
 import {
 	IContactsOrder,
 	IFormErrors,
-	IAppData,
-	IAppModel,
+	ICatalogData,
+	ICatalogModel,
 } from '../../types/model/IData';
 import { Model } from '../base/model';
 
-export class AppModel extends Model<IAppData> implements IAppModel {
+export class CatalogModel extends Model<ICatalogData> implements ICatalogModel {
 	productList: IProduct[];
 	preview: string | null;
 	order: Partial<IContactsOrder> = {};
 	formErrors: IFormErrors;
 
-	setProductList(items: IProduct[]): void {
+	setItems(items: IProduct[]): void {
 		this.productList = items;
 		this.emitChanges('catalogModel:change', { productList: this.productList });
 	}
 
-	setPreviewProduct(item: IProduct): void {
+	setItem(item: IProduct): void {
 		this.preview = item.id;
 		this.emitChanges('preview:change', item);
 	}

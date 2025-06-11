@@ -1,7 +1,7 @@
 import { ApiListResponse } from '../../types/base/IApi';
 import { IAppAPI } from '../../types/model/IAppAPI';
 import { IOrder, IOrderResult } from '../../types/model/IData';
-import { IProduct } from '../../types/view/IProduct';
+import { IProduct } from '../../types/model/IProduct';
 import { Api } from '../base/api';
 
 export class AppApi extends Api implements IAppAPI {

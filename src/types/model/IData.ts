@@ -1,4 +1,4 @@
-import { IProduct } from '../../types/view/IProduct';
+import { IProduct } from './IProduct';
 
 export type ICategory =
 	| 'хард-скил'
@@ -30,20 +30,20 @@ export interface IOrderResult {
 
 export type IFormErrors = Partial<Record<keyof IContactsOrder, string>>;
 
-export interface IAppData {
+export interface ICatalogData {
 	productList: IProduct[];
 	preview: string | null;
 	order: IContactsOrder;
 }
 
-export interface IAppModel {
+export interface ICatalogModel {
 	productList: IProduct[];
 	preview: string | null;
 	order: Partial<IContactsOrder>;
 	formErrors: IFormErrors;
 
-	setProductList(items: IProduct[]): void;
-	setPreviewProduct(item: IProduct): void;
+	setItems(items: IProduct[]): void;
+	setItem(item: IProduct): void;
 	addProductToBasket(item: IProduct): void;
 	removeProductFromBasket(item: IProduct): void;
 	getBasketItems(): IProduct[];

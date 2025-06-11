@@ -223,14 +223,14 @@ yarn build
 
 ##### Поля:
 
-- **id: string** - индивидуальный идентификатор карточки
+- **id?: string** - индивидуальный идентификатор карточки
 - **title: string** - заголовок карточки
 - **description?: string** - описание карточки товара
 - **image?: string** - картинка товара
-- **category: ICategory** - тегория карточки товара
+- **category?: ICategory** - тегория карточки товара
 - **price: number | null** - цена товара
-- **index: number** - индекс карточки товара
-- **isInBasket: boolean** - признак нахождения товара в корзине
+- **index?: number** - индекс карточки товара
+- **isInBasket?: boolean** - признак нахождения товара в корзине
 ##### Конструктор
 
 constructor(container: HTMLElement)

@@ -87,30 +87,40 @@ events.on('basketModel:remove', (item: IProduct) => {
 	app.removeProductFromBasket(item);
 });
 
+// Определяем обработчики событий
+const handleBasketAdd = (item: ProductPreviewView) => {
+  item.isInBasket = true;
+};
+
+const handleBasketRemove = (item: ProductPreviewView) => {
+  item.isInBasket = false;
+};
+
+// Подключаем обработчики к событиям
+events.on('basketModel:add', handleBasketAdd);
+events.on('basketModel:remove', handleBasketRemove);
+
+// В событии preview:change передаём в карточку результат проверки
 events.on('preview:change', (item: ProductPreviewView) => {
-	const card = new ProductPreviewView(cloneTemplate(cardPreviewTemplate), {
-		onClick: () => {
-			if (item.isInBasket) events.emit('basketModel:remove', item);
-			else events.emit('basketModel:add', item);
-		},
-	});
-	events.on('basketModel:add', () => (card.isInBasket = true));
+  const card = new ProductPreviewView(cloneTemplate(cardPreviewTemplate), {
+    onClick: () => {
+      if (item.isInBasket) events.emit('basketModel:remove', item);
+      else events.emit('basketModel:add', item);
+    },
+  });
 
-	events.on('basketModel:remove', () => (card.isInBasket = false));
-
-	modal.render({
-		content: card.render({
-			id: item.id,
-			title: item.title,
-			description: item.description,
-			image: item.image,
-			category: item.category,
-			price: item.price,
-			isInBasket: item.isInBasket,
-		}),
-	});
+  modal.render({
+    content: card.render({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      category: item.category,
+      price: item.price,
+      isInBasket: item.isInBasket,
+    }),
+  });
 });
-
 
 events.on('basket:open', () => {
 	modal.render({ content: basket.render({ total: app.getTotalPrice() }) });

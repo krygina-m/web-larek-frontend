@@ -5,7 +5,7 @@ import {
 	ICategoryNames,
 	IProductCatalogView,
 } from '../../types/model/IProduct';
-import { ProductView } from '../model/Product';
+import { ProductView } from '../view/Product';
 
 export class ProductCatalogView<T = IProduct>
 	extends ProductView<T>

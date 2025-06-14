@@ -2,7 +2,7 @@ import { ensureElement } from '../../utils/utils';
 import { IProductCatalogActions } from '../../types/model/IProduct';
 import { IProductBasketView } from '../../types/model/IProduct';
 import { IProduct } from '../../types/model/IProduct';
-import { ProductView } from '../model/Product';
+import { ProductView } from '../view/Product';
 
 export class ProductBasketView extends ProductView<IProduct> 
   implements IProductBasketView
